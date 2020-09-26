@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{76923325-D4AB-4808-91BF-8D8AE3464804}</ProjectGuid>
-    <RootNamespace>task1</RootNamespace>
+    <ProjectGuid>{51BB807E-6E8F-489D-9C3D-C1CF9B5266B3}</ProjectGuid>
+    <RootNamespace>task8</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -110,7 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="task1.cpp" />
+    <ClCompile Include="task8.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

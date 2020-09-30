@@ -1,8 +1,6 @@
 #include<iostream> 
-
+#include<clocale>
 using namespace std;
-
-
 
 void expandArray(int* &arr, int &capacity)
 {
@@ -28,7 +26,7 @@ void random(int* &arr, int &capacity, int &n, int &a, int &b)
 	{
 		random[i] = arr[i];
 	}
-	for (int i = capacity; i >= capacity, i < newCap; i++)
+	for (int i = capacity; i >= capacity || i < newCap; i++)
 	{
 		random[i] = a + rand() % b;
 	}
@@ -40,62 +38,43 @@ void random(int* &arr, int &capacity, int &n, int &a, int &b)
 
 void revArray(int* &arr, int &capacity)
 {
-	int newCap = capacity;
-	int* revArray = new int[newCap];
-
+	int c = 0;
 	int counter = 0;
 	counter = capacity;
-	for (int i = 0; i <capacity; i++)
+	for (int i = 0; i < capacity / 2; i++)
 	{
+		c = arr[i];
 		--counter;
-		revArray[counter] = arr[i];
+		arr[i] = arr[counter];
+		arr[counter] = c;
 	}
-	capacity = newCap;
-	delete[] arr;
-	arr = revArray;
 }
 
 void cupRev(int* &arr, int &capacity, int &count)
 {
-
-	int newCap = capacity;
-	int* arrRev = new int[newCap];
+	int c = 0;
 	int ii = 0;
-	int dbi = 0;
 	if (count % 2 == 0)
 	{
-		for (int i = 0; 2 * i < newCap; i++)
+		int cmo = capacity - 1;
+		for (int i = 0; i < cmo; ++i, ++i)
 		{
 			ii = i + 1;
-			dbi = i * 2;
-			arrRev[dbi] = arr[ii];
-		}
-		for (int i = 1; 2 * i < newCap; i++)
-		{
-			ii = i - 1;
-			dbi = (i * 2) - 1;
-			arrRev[dbi] = arr[ii];
+			c = arr[i];
+			arr[i] = arr[ii];
+			arr[ii] = c;
 		}
 	}
 	else
 	{
-		int ncmo = newCap - 1;
-		for (int i = 0; 2 * i < ncmo; i++)
+		for (int i = 0; i < capacity; ++i, ++i)
 		{
 			ii = i + 1;
-			dbi = i * 2;
-			arrRev[dbi] = arr[ii];
-		}
-		for (int i = 1; 2 * i < ncmo; i++)
-		{
-			ii = i - 1;
-			dbi = (i * 2) - 1;
-			arrRev[dbi] = arr[ii];
+			c = arr[i];
+			arr[i] = arr[ii];
+			arr[ii] = c;
 		}
 	}
-
-	delete[] arr;
-	arr = arrRev;
 }
 
 void cicle(int* &arr, int &capacity)
@@ -123,7 +102,7 @@ void nreverse(int* &arr, int &capacity, int n)
 	int* nreverse = new int[capacity];
 	int counter = 0;
 	counter = capacity;
-	for (int i = n; i > n, i < capacity; i++)
+	for (int i = n; i > n || i < capacity; i++)
 	{
 		--counter;
 		nreverse[counter] = arr[i];
@@ -144,27 +123,28 @@ void printMenu()
 	cout << "+-----------------------------------------------------------------+" << endl;
 	cout << "|                              MENU                               |" << endl;
 	cout << "+-----------------------------------------------------------------+" << endl;
-	cout << "|0. Exit                                                          |" << endl;
-	cout << "|1. Dobavit' v massiv n sluchainyh chisel v promezhutke ot a do b |" << endl;
-	cout << "|2. Razvernut' massiv                                             |" << endl;
-	cout << "|3. Pomenyat' elementy massiva mestami v parah                    |" << endl;
-	cout << "|4. Ciclicheskiy sdvig vpravo na 1                                |" << endl;
-	cout << "|5. Razvernut' dve poloviny massiva, n - indeks elementa          |"<< endl; 
-	cout << "|   razdelyayuschego poloviny                                     |" << endl;
-	cout << "|6. Vyvesti massiv na ecran                                       |" << endl;
+	cout << "|0. Выход из программы                                            |" << endl;
+	cout << "|1. Добавить в массив n случайных чисел в промежутке от a до b    |" << endl;
+	cout << "|2. Развернуть массив                                             |" << endl;
+	cout << "|3. Поменять элементы массива местами в парах                     |" << endl;
+	cout << "|4. Циклический сдвиг вправо на 1                                 |" << endl;
+	cout << "|5. Развернуть две половины массива, n - индекс элемента          |" << endl; 
+	cout << "|   разделяющего половины                                         |" << endl;
+	cout << "|6. Вывести массив на экран                                       |" << endl;
 	cout << "+-----------------------------------------------------------------+" << endl;
 }
 
 int main()
 {
+	setlocale(LC_ALL, "Russian");
 	int x = 0;
 	int capArray = 10;
 	int count = 0;
 	int* Array = new int[capArray];
-	cout << "Zapolnite massiv" << endl;
+	cout << "Заполните массив" << endl;
 	for (int i = 0; i < capArray; i++)
 	{
-		cout << "Element [" << i << "]" << " >> ";
+		cout << "Элемент [" << i << "]" << " >> ";
 		cin >> x;
 		Array[i] = x;
 		count++;
@@ -178,8 +158,8 @@ int main()
 		cin >> choice;
 		while (choice < 0 || choice > 6)
 		{
-			cout << "Oshibka vvoda" << endl;
-			cout << "Vvedite znachenie, kotoroe sootvetstvuet menu" << endl;
+			cout << "Ошибка ввода" << endl;
+			cout << "Введите значение, которое соответствует меню" << endl;
 			cout << ">>";
 			cin >> choice;
 		}
@@ -187,7 +167,7 @@ int main()
 		{
 		case 0:
 		{
-			cout << "Rabota s programmoi zavershena" << endl;
+			cout << "Раабота с программой завершена" << endl;
 		}
 		break;
 
@@ -196,10 +176,10 @@ int main()
 			int n = 0;
 			int b = 0;
 			int a = 0;
-			cout << "Vvedite colichestvo sluchainyh chisel" << endl;
+			cout << "Введите количество случайных чисел" << endl;
 			cout << "n >>";
 			cin >> n;
-			cout << "Vvedite promezhutok sluchainyh chisel" << endl;
+			cout << "Введите промежуток случайных чисел" << endl;
 			cout << "a >>";
 			cin >> a;
 			cout << "b >>";
@@ -226,7 +206,7 @@ int main()
 		case 2:
 		{
 			revArray(Array, capArray);
-			cout << "Massiv razvernut" << endl;
+			cout << "Массив развернут" << endl;
 			cout << "[" << count << "/" << capArray << "]" << "{";
 			for (int i = 0; i < count; i++)
 			{
@@ -314,5 +294,5 @@ int main()
 		}
 	}
 	delete[] Array;
-	return EXIT_SUCCESS;
+	return 0;
 }

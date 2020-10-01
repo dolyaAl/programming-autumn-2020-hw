@@ -1,5 +1,6 @@
 #include<iostream> 
 #include<clocale>
+
 using namespace std;
 
 void expandArray(int* &arr, int &capacity)
@@ -28,7 +29,7 @@ void random(int* &arr, int &capacity, int &n, int &a, int &b)
 	}
 	for (int i = capacity; i >= capacity || i < newCap; i++)
 	{
-		random[i] = a + rand() % b;
+		random[i] = a + (int)rand() % b;
 	}
 
 	capacity = newCap;
@@ -134,6 +135,106 @@ void printMenu()
 	cout << "+-----------------------------------------------------------------+" << endl;
 }
 
+void printArray(int*& arr, int& count)
+{
+	for (int i = 0; i < count; i++)
+	{
+		cout << arr[i];
+		if (i != (count - 1))
+		{
+			cout << ", ";
+		}
+	}
+}
+
+void processChoice(int*& Array, int& capArray, int& count, int& choice)
+{
+	setlocale(LC_ALL, "Russian");
+	switch (choice)
+	{
+	case 0:
+	{
+		cout << "Работа с программой завершена" << endl;
+	}
+	break;
+
+	case 1:
+	{
+		int n = 0;
+		int b = 0;
+		int a = 0;
+		cout << "Введите количество случайных чисел" << endl;
+		cout << "n >>";
+		cin >> n;
+		cout << "Введите промежуток случайных чисел" << endl;
+		cout << "a >>";
+		cin >> a;
+		cout << "b >>";
+		cin >> b;
+		count = count + n;
+		if (count == capArray)
+		{
+			expandArray(Array, capArray);
+		}
+		random(Array, capArray, n, a, b);
+		cout << "[" << count << "/" << capArray << "]" << "{";
+		printArray(Array, count);
+		cout << "}" << endl;
+	}
+	break;
+
+	case 2:
+	{
+		revArray(Array, capArray);
+		cout << "Массив развернут" << endl;
+		cout << "[" << count << "/" << capArray << "]" << "{";
+		printArray(Array, count);
+		cout << "}" << endl;
+	}
+	break;
+
+	case 3:
+	{
+		cupRev(Array, capArray, count);
+		cout << "Пары массива развернуты" << endl;
+		cout << "[" << count << "/" << capArray << "]" << "{";
+		printArray(Array, count);
+		cout << "}" << endl;
+	}
+	break;
+
+	case 4:
+	{
+		cicle(Array, capArray);
+		cout << "[" << count << "/" << capArray << "]" << "{";
+		printArray(Array, count);
+		cout << "}" << endl;
+	}
+	break;
+
+	case 5:
+	{
+		int n = 0;
+		cout << "Введите номер элемента" << endl;
+		cout << "n >> ";
+		cin >> n;
+		nreverse(Array, capArray, n);
+		cout << "[" << count << "/" << capArray << "]" << "{";
+		printArray(Array, count);
+		cout << "}" << endl;
+	}
+	break;
+
+	case 6:
+	{
+		cout << "[" << count << "/" << capArray << "]" << "{";
+		printArray(Array, count);
+		cout << "}" << endl;
+	}
+	break;
+	}
+}
+
 int main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -163,136 +264,9 @@ int main()
 			cout << ">>";
 			cin >> choice;
 		}
-		switch (choice)
-		{
-		case 0:
-		{
-			cout << "Раабота с программой завершена" << endl;
-		}
-		break;
-
-		case 1:
-		{
-			int n = 0;
-			int b = 0;
-			int a = 0;
-			cout << "Введите количество случайных чисел" << endl;
-			cout << "n >>";
-			cin >> n;
-			cout << "Введите промежуток случайных чисел" << endl;
-			cout << "a >>";
-			cin >> a;
-			cout << "b >>";
-			cin >> b;
-			count = count + n;
-			if (count == capArray)
-			{
-				expandArray(Array, capArray);
-			}
-			random(Array, capArray, n, a, b);
-			cout << "[" << count << "/" << capArray << "]" << "{";
-			for (int i = 0; i < count; i++)
-			{
-				cout << Array[i];
-				if (i != (count - 1))
-				{
-					cout << ", ";
-				}
-			}
-			cout << "}" << endl;
-		}
-		break;
-
-		case 2:
-		{
-			revArray(Array, capArray);
-			cout << "Массив развернут" << endl;
-			cout << "[" << count << "/" << capArray << "]" << "{";
-			for (int i = 0; i < count; i++)
-			{
-				cout << Array[i];
-				if (i != (count - 1))
-				{
-					cout << ", ";
-				}
-			}
-			cout << "}" << endl;
-		}
-		break;
-
-		case 3:
-		{
-			cupRev(Array, capArray, count);
-			cout << "Pari massiva razvernuty" << endl;
-			cout << "[" << count << "/" << capArray << "]" << "{";
-			for (int i = 0; i < count; i++)
-			{
-				cout << Array[i];
-				if (i != (count - 1))
-				{
-					cout << ", ";
-				}
-			}
-			cout << "}" << endl;
-		}
-		break;
-
-		case 4:
-		{
-			cicle(Array, capArray);
-			cout << "[" << count << "/" << capArray << "]" << "{";
-			for (int i = 0; i < count; i++)
-			{
-				cout << Array[i];
-				if (i != (count - 1))
-				{
-					cout << ", ";
-				}
-			}
-			cout << "}" << endl;
-		}
-		break;
-
-		case 5:
-		{
-			int n = 0;
-			cout << "Vvedite nomer elementa" << endl;
-			cout << "n >> ";
-			cin >> n;
-			nreverse(Array, capArray, n);
-			cout << "[" << count << "/" << capArray << "]" << "{";
-			for (int i = 0; i < count; i++)
-			{
-				cout << Array[i];
-				if (i != (count - 1))
-				{
-					cout << ", ";
-				}
-			}
-			cout << "}" << endl;
-		}
-		break;
-
-		case 6:
-		{
-			cout << "[" << count << "/" << capArray << "]" << "{";
-			for (int i = 0; i < count; i++)
-			{
-				cout << Array[i];
-				if (i != (count - 1))
-				{
-					cout << ", ";
-				}
-			}
-			cout << "}" << endl;
-		}
-		break;
-		}
-		if (choice != 0)
-		{
-			system("pause");
-		}
+		processChoice(Array, capArray, count, choice);
+		system("pause");
 	}
 	delete[] Array;
-	return 0;
+	return EXIT_SUCCESS;
 }

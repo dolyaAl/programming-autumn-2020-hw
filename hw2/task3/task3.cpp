@@ -1,5 +1,6 @@
 #include<iostream>
 #include<clocale>
+
 using namespace std;
 
 void expandArray(int*& arr, int& capacity)

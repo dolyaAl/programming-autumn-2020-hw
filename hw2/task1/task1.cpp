@@ -21,8 +21,6 @@ void expandArray(int* &arr, int &capacity)
 void addElement(int*& arr, int& capacity, int& count)
 {
 	int vvod = 0;
-	cout << "Добавьте число в массив" << endl;
-	cout << ">>";
 	cin >> vvod;
 	arr[count] = vvod;
 	count++;
@@ -30,7 +28,6 @@ void addElement(int*& arr, int& capacity, int& count)
 
 void printArray(int*& arr,int& capArray, int& count)
 {
-	cout << "[" << count << "/" << capArray << "]" << "{";
 	for (int i = 0; i < count; i++)
 	{
 		cout << arr[i];
@@ -39,14 +36,11 @@ void printArray(int*& arr,int& capArray, int& count)
 			cout << ", ";
 		}
 	}
-	cout << "}" << endl;
 }
 
-void max(int*& arr, int& capacity, int& count)
+void maxEl(int*& arr, int& capacity, int& count, int& max, int& counter)
 {
-	int max = 0;
-	max = arr[0];
-	int counter = 0;
+	max = arr[0];	
 	for (int i = 1; i < count; i++)
 	{
 		if (arr[i] > max)
@@ -55,13 +49,11 @@ void max(int*& arr, int& capacity, int& count)
 			counter = i;
 		}
 	}
-	cout << "Элемент № " << counter << " = " << max << " - максимальный в массиве" << endl;
 }
 
-void min(int*& arr, int& capacity, int& count)
+void minEl(int*& arr, int& capacity, int& count, int& min, int& counter)
 {
-	int counter = 0;
-	int min = arr[0];
+	min = arr[0];
 	for (int i = 1; i < count; i++)
 	{
 		if (arr[i] < min)
@@ -70,23 +62,20 @@ void min(int*& arr, int& capacity, int& count)
 			counter = i;
 		}
 	}
-	cout << "Элемент № " << counter << " = " << min << " - минимальный в массиве" << endl;
+	
 }
 
-void sum(int*& arr, int& capacity, int& count)
+void sumEl(int*& arr, int& capacity, int& count, int& sum)
 {
-	int sum = 0;
 	for (int i = 0; i < count; i++)
 	{
 		sum += arr[i];
 	}
-	cout << "Сумма элементов массива = ";
-	cout << sum << endl;
+	
 }
 
 void revprintArray(int*& arr, int& capacity, int& count)
 {
-	cout << "[" << count << "/" << capacity << "]" << "{";
 	for (int i = (count - 1); i >= 0; i--)
 	{
 		cout << arr[i];
@@ -95,7 +84,6 @@ void revprintArray(int*& arr, int& capacity, int& count)
 			cout << ", ";
 		}
 	}
-	cout << "}" << endl;
 }
 
 void printMenu()
@@ -114,9 +102,74 @@ void printMenu()
 	cout << "+-----------------------------------------------------------------+" << endl;
 }
 
+void processChoice(int*& Array, int& capArray, int& count, int& choice)
+{
+	switch (choice)
+	{
+	case 0:
+	{
+		cout << "Работа с программой завершена" << endl;
+	}
+	break;
+	case 1:
+	{
+		if (count == capArray)
+		{
+			expandArray(Array, capArray);
+		}
+		cout << "Добавьте число в массив" << endl;
+		cout << ">>";
+		addElement(Array, capArray, count);
+	}
+	break;
+	case 2:
+	{
+		cout << "[" << count << "/" << capArray << "]" << "{";
+		printArray(Array, capArray, count);
+		cout << "}" << endl;
+	}
+	break;
+	case 3:
+	{
+		int max = 0;
+		int counter = 0;
+		maxEl(Array, capArray, count, max, counter);
+		cout << "Элемент № " << counter << " = " << max << " - максимальный в массиве" << endl;
+	}
+	break;
+	case 4:
+	{
+
+		int counter = 0;
+		int min = 0;
+		minEl(Array, capArray, count, min, counter);
+		cout << "Элемент № " << counter << " = " << min << " - минимальный в массиве" << endl;
+	}
+	break;
+
+	case 5:
+	{
+		int sum = 0;
+		sumEl(Array, capArray, count, sum);
+		cout << "Сумма элементов массива = ";
+		cout << sum << endl;
+	}
+	break;
+
+	case 6:
+	{
+		cout << "[" << count << "/" << capArray << "]" << "{";
+		revprintArray(Array, capArray, count);
+		cout << "}" << endl;
+	}
+	break;
+
+	}
+}
+
+
 int main()
 {
-	int x = 0;
 	int capArray = 10;
 	int count = 0;
 	int* Array = new int[capArray];
@@ -135,55 +188,8 @@ int main()
 			cout << ">>";
 			cin >> choice;
 		}
-		switch (choice)
-		{
-		case 0:
-		{
-			cout << "Работа с программой завершена" << endl;
-		}
-			break;
-		case 1:
-		{
-			if (count == capArray)
-			{
-				expandArray(Array, capArray);
-			}
-			addElement(Array, capArray, count);
-		}
-			break;
-		case 2:
-		{
-			printArray(Array, capArray, count);
-		}
-			break;
-		case 3:
-		{
-			max(Array, capArray, count);
-		}
-			break;
-		case 4:
-		{
-			min(Array, capArray, count);
-		}
-			break;
-		
-		case 5:
-		{
-			sum(Array, capArray, count);
-		}
-			break;
-		
-		case 6:
-		{
-			revprintArray(Array, capArray, count);
-		}
-			break;
-		
-	  }
-		if (choice != 0)
-		{
-			system("pause");
-		}
+		processChoice(Array, capArray, count, choice);
+		system("pause");
 	}
 	delete[] Array;
 	return EXIT_SUCCESS;

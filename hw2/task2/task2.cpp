@@ -54,68 +54,37 @@ void revArray(int* &arr, int &capacity)
 void cupRev(int* &arr, int &capacity, int &count)
 {
 	int c = 0;
-	int ii = 0;
-	if (count % 2 == 0)
+	int i = 0;
+	for (int k = 1; k < count; ++k, ++k)
 	{
-		int cmo = capacity - 1;
-		for (int i = 0; i < cmo; ++i, ++i)
-		{
-			ii = i + 1;
-			c = arr[i];
-			arr[i] = arr[ii];
-			arr[ii] = c;
-		}
-	}
-	else
-	{
-		for (int i = 0; i < capacity; ++i, ++i)
-		{
-			ii = i + 1;
-			c = arr[i];
-			arr[i] = arr[ii];
-			arr[ii] = c;
-		}
-	}
-}
+		i = k - 1;
+		c = arr[i];
+		arr[i] = arr[k];
+		arr[k] = c;
 
-void cicle(int* &arr, int &capacity)
-{
-	int newCap = capacity;
-	int* cicle = new int[newCap];
-	int last = capacity - 1;
-	int b = 0;
-	for (int i = 0; i < capacity; i++)
-	{
-		if (i == last)
-		{
-			cicle[0] = arr[last];
-			break;
-		}
-		b = i + 1;
-		cicle [b] = arr[i];
 	}
-	delete[] arr;
-	arr = cicle;
-}
+} 
 
 void nreverse(int* &arr, int &capacity, int n)
 {
-	int* nreverse = new int[capacity];
+	int c = 0;
 	int counter = 0;
-	counter = capacity;
-	for (int i = n; i > n || i < capacity; i++)
+	counter = capacity - 1;
+	for (int i = n; i >= n || i < capacity; i++)
 	{
+		c = arr[counter];
 		--counter;
-		nreverse[counter] = arr[i];
+		arr[i] = arr[counter];
+		arr[counter] = c;
 	}
 	counter = n;
 	for (int i = 0; i < n; i++)
 	{
+		c = arr[counter];
 		--counter;
-		nreverse[counter] = arr[i];
+		arr[i] = arr[counter];
+		arr[counter] = c;
 	}
-	delete[] arr;
-	arr = nreverse;
 }
 
 void printMenu()
@@ -205,7 +174,6 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 
 	case 4:
 	{
-		cicle(Array, capArray);
 		cout << "[" << count << "/" << capArray << "]" << "{";
 		printArray(Array, count);
 		cout << "}" << endl;
@@ -247,6 +215,10 @@ int main()
 	{
 		cout << "Ёлемент [" << i << "]" << " >> ";
 		cin >> x;
+		if (x == -1)
+		{
+			break;
+		}
 		Array[i] = x;
 		count++;
 	}

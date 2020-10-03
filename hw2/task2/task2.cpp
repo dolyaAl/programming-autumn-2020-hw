@@ -18,31 +18,26 @@ void expandArray(int* &arr, int &capacity)
 	arr = temp;
 }
 
-void random(int* &arr, int &capacity, int &n, int &a, int &b)
+void addElement(int*& arr, int count, int vvod)
 {
-	int newCap = capacity + n;
-	int* random = new int[newCap];
-
-	for (int i = 0; i < capacity; i++)
-	{
-		random[i] = arr[i];
-	}
-	for (int i = capacity; i >= capacity || i < newCap; i++)
-	{
-		random[i] = a + (int)rand() % b;
-	}
-
-	capacity = newCap;
-	delete[] arr;
-	arr = random;
+	arr[count] = vvod;
+	count++;
 }
 
-void revArray(int* &arr, int &capacity)
+void random(int* &arr, int &capacity,int& count,  int n, int a, int b)
+{
+	for (int i = count; i < (count + n); i++)
+	{
+		addElement(arr, i, rand() % (b - a + 1) + a);
+	}
+}
+
+void revArray(int* &arr, int count)
 {
 	int c = 0;
 	int counter = 0;
-	counter = capacity;
-	for (int i = 0; i < capacity / 2; i++)
+	counter = count;
+	for (int i = 0; i < count / 2; i++)
 	{
 		c = arr[i];
 		--counter;
@@ -65,12 +60,14 @@ void cupRev(int* &arr, int &capacity, int &count)
 	}
 } 
 
-void nreverse(int* &arr, int &capacity,int count, int n)
+void nreverse(int* &arr, int count, int n)
 {
 	int c = 0;
+	int b = 0;
 	int counter = 0;
 	counter = count;
-	for (int i = n; i >= n || i < (count - n)/2; i++)
+	b = count + n;
+	for (int i = n; i < b/2; i++)
 	{
 		c = arr[i];
 		--counter;
@@ -87,16 +84,15 @@ void nreverse(int* &arr, int &capacity,int count, int n)
 	}
 }
 
-void cicle(int*& arr, int& capacity, int count)
+void cicle(int*& arr, int count)
 {
 	int c = 0;
-	int b = count;
+	c = arr[count - 1];
 	for (int i = count; i > 0; --i)
 	{
-		c = arr[b];
 		arr[i] = arr[i - 1];
 	}
-	arr[0] = b;
+	arr[0] = c;
 }
 
 void printMenu()
@@ -152,12 +148,12 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 		cin >> a;
 		cout << "b >>";
 		cin >> b;
-		count = count + n;
 		if (count == capArray)
 		{
 			expandArray(Array, capArray);
 		}
-		random(Array, capArray, n, a, b);
+		random(Array, capArray, count, n, a, b);
+		count = count + n;
 		cout << "[" << count << "/" << capArray << "]" << "{";
 		printArray(Array, count);
 		cout << "}" << endl;
@@ -166,7 +162,7 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 
 	case 2:
 	{
-		revArray(Array, capArray);
+		revArray(Array, count);
 		cout << "Массив развернут" << endl;
 		cout << "[" << count << "/" << capArray << "]" << "{";
 		printArray(Array, count);
@@ -186,7 +182,7 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 
 	case 4:
 	{
-		cicle(Array, capArray, count);
+		cicle(Array, count);
 		cout << "[" << count << "/" << capArray << "]" << "{";
 		printArray(Array, count);
 		cout << "}" << endl;
@@ -199,7 +195,7 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 		cout << "Введите номер элемента" << endl;
 		cout << "n >> ";
 		cin >> n;
-		nreverse(Array, capArray, count, n);
+		nreverse(Array, count, n);
 		cout << "[" << count << "/" << capArray << "]" << "{";
 		printArray(Array, count);
 		cout << "}" << endl;

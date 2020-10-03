@@ -18,11 +18,8 @@ void expandArray(int*& arr, int& capacity)
 	arr = temp;
 }
 
-void addElement(int*& arr, int& capacity, int& count)
+void addElement(int*& arr, int& count, int vvod)
 {
-	setlocale(LC_ALL, "Russian");
-	int vvod = 0;
-	cout << "Введите последовательность" << endl;
 	while (vvod != -1)
 	{
 		cout << ">>";
@@ -42,6 +39,48 @@ void printMenu()
 	cout << "0. Выход из программы" << endl;
 	cout << "1. Ввести последовательность чисел (-1 остановит ввод)" << endl;
 	cout << "2. Рассчитать среднее арифметическое факториалов введенной последовательности" << endl;
+}
+
+void proccessChoice(int*& Array, int& capArray, int& count, int choice)
+{
+	switch (choice)
+	{
+	case 0:
+	{
+		cout << "Работа с программой завершена" << endl;
+	}
+	break;
+	case 1:
+	{
+		if (count == capArray)
+		{
+			expandArray(Array, capArray);
+		}
+		int vvod = 0;
+		cout << "Введите последовательность" << endl;
+		addElement(Array, capArray, vvod);
+	}
+	break;
+	case 2:
+	{
+		float sum = 0;
+		float arif = 0;
+		int c = 0;
+		for (int i = 0; i < count; ++i)
+		{
+			c = Array[i];
+			for (int k = 1; k < Array[i]; ++k)
+			{
+				c = c * k;
+			}
+			sum += c;
+		}
+		arif = sum / count;
+		cout << "Среднее арифметическое факториалов последовательности = ";
+		cout << arif << endl;
+	}
+	break;
+	}
 }
 
 int main(int argc, char* argv[])
@@ -64,42 +103,7 @@ int main(int argc, char* argv[])
 			cout << ">>";
 			cin >> choice;
 		}
-		switch (choice)
-		{
-		case 0:
-		{
-			cout << "Работа с программой завершена" << endl;
-		}
-		break;
-		case 1:
-		{
-			if (count == capArray)
-			{
-				expandArray(Array, capArray);
-			}
-			addElement(Array, capArray, count);
-		}
-		break;
-		case 2:
-		{
-			float sum = 0;
-			float arif = 0;
-			int c = 0;
-			for (int i = 0; i < count; ++i)
-			{
-				c = Array[i];
-				for (int k = 1; k < Array[i]; ++k)
-				{
-					c = c * k;
-				}
-				sum += c;
-			}
-			arif = sum / count;
-			cout << "Среднее арифметическое факториалов последовательности = ";
-			cout << arif << endl;
-		}
-		break;
-		}
+		proccessChoice(Array, capArray, count, choice);
 		if (choice != 0)
 		{
 			system("pause");

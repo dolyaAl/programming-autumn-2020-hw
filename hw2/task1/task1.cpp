@@ -18,10 +18,8 @@ void expandArray(int* &arr, int &capacity)
 	arr = temp;
 }
 
-void addElement(int*& arr, int& capacity, int& count)
+void addElement(int*& arr, int& count, int vvod)
 {
-	int vvod = 0;
-	cin >> vvod;
 	arr[count] = vvod;
 	count++;
 }
@@ -38,40 +36,42 @@ void printArray(int*& arr,int& capArray, int& count)
 	}
 }
 
-void maxEl(int*& arr, int& capacity, int& count, int& max, int& counter)
+int maxEl(int*& arr, int count)
 {
-	max = arr[0];	
+	int max = 0;
+	max = arr[0];
 	for (int i = 1; i < count; i++)
 	{
 		if (arr[i] > max)
 		{
 			max = arr[i];
-			counter = i;
 		}
 	}
+	return max;
 }
 
-void minEl(int*& arr, int& capacity, int& count, int& min, int& counter)
+int minEl(int*& arr, int count)
 {
+	int min = 0;
 	min = arr[0];
 	for (int i = 1; i < count; i++)
 	{
 		if (arr[i] < min)
 		{
 			min = arr[i];
-			counter = i;
 		}
 	}
-	
+	return min;
 }
 
-void sumEl(int*& arr, int& capacity, int& count, int& sum)
+int sumEl(int*& arr, int count) 
 {
+	int sum = 0;
 	for (int i = 0; i < count; i++)
 	{
 		sum += arr[i];
 	}
-	
+	return sum;
 }
 
 void revprintArray(int*& arr, int& capacity, int& count)
@@ -113,13 +113,15 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 	break;
 	case 1:
 	{
+		int vvod = 0;
 		if (count == capArray)
 		{
 			expandArray(Array, capArray);
 		}
 		cout << "Добавьте число в массив" << endl;
 		cout << ">>";
-		addElement(Array, capArray, count);
+		cin >> vvod;
+		addElement(Array, count, vvod);
 	}
 	break;
 	case 2:
@@ -131,28 +133,19 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 	break;
 	case 3:
 	{
-		int max = 0;
-		int counter = 0;
-		maxEl(Array, capArray, count, max, counter);
-		cout << "Элемент № " << counter << " = " << max << " - максимальный в массиве" << endl;
+		cout << "Максимальный элемент массива = " << maxEl(Array, count) << endl;
 	}
 	break;
 	case 4:
 	{
-
-		int counter = 0;
-		int min = 0;
-		minEl(Array, capArray, count, min, counter);
-		cout << "Элемент № " << counter << " = " << min << " - минимальный в массиве" << endl;
+		cout << "Минимальный элемент массива = " << minEl(Array, count) << endl;	
 	}
 	break;
 
 	case 5:
 	{
-		int sum = 0;
-		sumEl(Array, capArray, count, sum);
 		cout << "Сумма элементов массива = ";
-		cout << sum << endl;
+		cout << sumEl(Array, count) << endl;
 	}
 	break;
 

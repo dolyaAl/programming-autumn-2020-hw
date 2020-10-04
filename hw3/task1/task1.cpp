@@ -64,7 +64,7 @@ void introduceEl(int*& arr, int& count, int n, int x)
 void deleteElements(int*& arr, int& count, int n, int a)
 {
 	int counter = 0;
-	for (int i = n; i >  n && i < count; ++i)
+	for (int i = n; i < count; ++i)
 	{
 		*(arr + i) = *(arr + a + n + counter);
 		counter++;
@@ -72,7 +72,7 @@ void deleteElements(int*& arr, int& count, int n, int a)
 	count = count - a;
 }
 
-void addElement(int*& arr, int& capacity, int& count)
+void addElement(int*& arr, int& count)
 {
 	setlocale(LC_ALL, "Russian");
 	int vvod = 0;
@@ -128,10 +128,10 @@ void arrayChoice(int* Array, int* secArray, int vvod)
 	switch (vvod)
 	{
 	case 1:
-		addElement(Array, *(Array - 1), *(Array - 2));
+		
 		break;
 	case 2:
-		addElement(secArray, *(secArray - 1), *(secArray - 2));
+		
 		break;
 	}
 }
@@ -184,7 +184,7 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice, int*& se
 		cout << "В какой массив добавить элементы" << endl;
 		cout << " >> ";
 		cin >> vvod; 
-		
+		addElement(Array, *(Array - 2));
 	}
 
 	break;
@@ -322,7 +322,7 @@ int main()
 			cout << ">>";
 			cin >> choice;
 		}
-		processChoice(Array, *(Array - 1), *(Array - 2), choice);
+		processChoice(Array, *(Array - 1), *(Array - 2), choice, secArray, *(secArray - 2));
 		system("pause");
 	}
 	delete[] Array;

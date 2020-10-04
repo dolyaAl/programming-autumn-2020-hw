@@ -37,56 +37,6 @@ void random(int*& arr, int& capacity, int& n, int& a, int& b)
 	arr = random;
 }
 
-void revArray(int*& arr, int& capacity)
-{
-	int c = 0;
-	int counter = 0;
-	counter = capacity;
-	for (int i = 0; i < capacity / 2; i++)
-	{
-		c = arr[i];
-		--counter;
-		arr[i] = arr[counter];
-		arr[counter] = c;
-	}
-}
-
-void cupRev(int*& arr, int& capacity, int& count)
-{
-	int c = 0;
-	int i = 0;
-	for (int k = 1; k < count; ++k, ++k)
-	{
-		i = k - 1;
-		c = arr[i];
-		arr[i] = arr[k];
-		arr[k] = c;
-
-	}
-}
-
-void nreverse(int*& arr, int& capacity, int n)
-{
-	int c = 0;
-	int counter = 0;
-	counter = capacity - 1;
-	for (int i = n; i >= n || i < capacity; i++)
-	{
-		c = arr[counter];
-		--counter;
-		arr[i] = arr[counter];
-		arr[counter] = c;
-	}
-	counter = n;
-	for (int i = 0; i < n; i++)
-	{
-		c = arr[counter];
-		--counter;
-		arr[i] = arr[counter];
-		arr[counter] = c;
-	}
-}
-
 void index(int*& arr, int count)
 {
 	int x = 0;
@@ -114,13 +64,12 @@ void introduceEl(int*& arr, int& count, int n, int x)
 void deleteElements(int*& arr, int& count, int n, int a)
 {
 	int counter = 0;
-	for (int i = n; i >  n || i < count; ++i)
+	for (int i = n; i >  n && i < count; ++i)
 	{
-		*(arr + i) = *(arr + n + a + counter);
+		*(arr + i) = *(arr + a + n + counter);
 		counter++;
 	}
 	count = count - a;
-
 }
 
 void addElement(int*& arr, int& capacity, int& count)
@@ -145,33 +94,46 @@ void find(int*& arr, int count, int*& a, int acount)
 {
 	int counter = 0;
 	int c = 0;
-	for (int i = 0; i <= acount; ++i)
+	for (int i = 0; i < acount; ++i)
 	{
 		for (int k = 0; k <= count; ++k)
 		{
-			if (*(a + i) == *(arr + k))
+			if ((*(a + i) == *(arr + k)) && (*(a + (i + 1)) == *(arr + (k + 1))))
 			{
 				counter++;
 				c = k;
 			}
 		}
-		if (counter == (acount - 1))
-		{
-			cout << c - acount + 1 << "    " << c << endl;
-		}
-		else
-		{
-			cout << "Подпоследовательность не найдена" << endl;
-		}
+	}
+	if (counter == acount)
+	{
+		cout << c - acount + 1 << "    " << c << endl;
+	}
+	else
+	{
+		cout << "Подпоследовательность не найдена" << endl;
 	}
 }
 
 int* initArray(int capacity)
 {
 	int* a = new int[capacity + 2]{ 0 };
-	*(a + 1) = 10;
+	*(a + 1) = capacity;
 	a += 2;
 	return a;
+}
+
+void arrayChoice(int* Array, int* secArray, int vvod)
+{
+	switch (vvod)
+	{
+	case 1:
+		addElement(Array, *(Array - 1), *(Array - 2));
+		break;
+	case 2:
+		addElement(secArray, *(secArray - 1), *(secArray - 2));
+		break;
+	}
 }
 
 void printMenu()
@@ -205,7 +167,7 @@ void printArray(int*& arr, int& count)
 	}
 }
 
-void processChoice(int*& Array, int& capArray, int& count, int& choice)
+void processChoice(int*& Array, int& capArray, int& count, int& choice, int*& secArray, int& seccount)
 {
 	setlocale(LC_ALL, "Russian");
 	switch (choice)
@@ -218,7 +180,11 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 
 	case 1:
 	{
-		addElement(Array, capArray, count);
+		int vvod = 0;
+		cout << "В какой массив добавить элементы" << endl;
+		cout << " >> ";
+		cin >> vvod; 
+		
 	}
 
 	break;
@@ -265,14 +231,6 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 
 	case 5:
 	{
-		int n = 0;
-		cout << "Введите номер элемента" << endl;
-		cout << "n >> ";
-		cin >> n;
-		nreverse(Array, capArray, n);
-		cout << "[" << count << "/" << capArray << "]" << "{";
-		printArray(Array, count);
-		cout << "}" << endl;
 	}
 	break;
 
@@ -335,10 +293,11 @@ void processChoice(int*& Array, int& capArray, int& count, int& choice)
 		{
 			cout << " >> ";
 			cin >> vvod;
-			findArr[i] = vvod;
+			*(findArr + i) = vvod;
+
 		}
 
-		find(Array, count, findArr, *(findArr - 2));
+		find(Array, count, findArr, counter);
 	}
 		break;
 	}
@@ -348,7 +307,7 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	int* Array = initArray(10);
-	
+	int* secArray = initArray(10);
 	int choice = -1;
 	while (choice != 0)
 	{

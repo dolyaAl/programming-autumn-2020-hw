@@ -104,6 +104,7 @@ void printArray(int*& arr)
 
 int search(int* arr, int element, int start)
 {
+	start = -1;
 	for (int i = 0; i <= *(arr - 2); ++i)
 	{
 		if (*(arr + i) == element)
@@ -241,32 +242,14 @@ int deleteGroup(int* a, int startIndex, int count)
 
 int subSequence(int* a, int* b)
 {
-	int counter = 0;
 	int c = 0;
 	for (int i = 0; i < *(b - 2); ++i)
 	{
-		for (int k = 0; k <= *(a - 2); ++k)
+		if (search(a, *(b + i), 0) != -1)
 		{
-			if ((*(b + i) == *(a + k)) && (*(b + (i + 1)) == *(a + (k + 1))))
-			{
-				counter++;
-				c = k;
-			}
-			else if ((i == *(b - 2) - 1) && (*(b + i) == *(a + k)) && (*(b + (i + 1)) != *(a + (k + 1))))
-			{
-				counter++;
-				c = k;
-				break;
-			}
+			++c;
 		}
-	}
-	if (counter == *(b - 2))
-	{
-		return (c - *(b - 2) + 1);
-	}
-	else
-	{
-		return 0;
+
 	}
 }
 

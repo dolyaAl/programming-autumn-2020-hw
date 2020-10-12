@@ -28,6 +28,19 @@ void printMenu()
 	cout << "+---------------------------------------------------------------+" << endl;
 }
 
+void printEror()
+{
+	system("cls");
+	printf("EROR EROR EROR EROR EROR EROR EROR EROR EROR\n");
+	printf("EROR                                    EROR\n");
+	printf("EROR          Ошибка ввода              EROR\n");
+	printf("EROR     Введите корректное значение    EROR\n");
+	printf("EROR                                    EROR\n");
+	printf("EROR EROR EROR EROR EROR EROR EROR EROR EROR\n");
+	system("pause");
+	system("cls");
+}
+
 void processChoice(ArrayList& a, int choice)
 {
 	switch (choice)
@@ -52,7 +65,7 @@ void processChoice(ArrayList& a, int choice)
 		{
 			cout << "Операция выполнена успешно" << endl;
 		}
-		else if (a.add(element) == false)
+		else
 		{
 			cout << "Ошибка при выполнении операции" << endl;
 		}
@@ -72,7 +85,7 @@ void processChoice(ArrayList& a, int choice)
 		{
 			cout << "Операция выполнена успешно" << endl;
 		}
-		else if (a.add(index, element) == false)
+		else
 		{
 			cout << "Ошибка при выполнении операции" << endl;
 		}
@@ -88,7 +101,7 @@ void processChoice(ArrayList& a, int choice)
 		{
 			cout << "Операция выполнена успешно" << endl;
 		}
-		else if (a.remove(index) == false)
+		else
 		{
 			cout << "Ошибка при выполнении операции" << endl;
 		}
@@ -157,7 +170,7 @@ void processChoice(ArrayList& a, int choice)
 		{
 			cout << "Операция выполнена успешно" << endl;
 		}
-		else if (a.addAll(index, list) == false)
+		else
 		{
 			cout << "Ошибка при выполнении операции" << endl;
 		}
@@ -179,6 +192,13 @@ int main()
 		printMenu();
 		cout << " >> ";
 		cin >> choice;
+		while (choice < 0 || choice > 7)
+		{
+			printEror();
+			printMenu();
+			cout << " >> ";
+			cin >> choice;
+		}
 		processChoice(a, choice);
 		system("pause");
 	} while (choice != 0);

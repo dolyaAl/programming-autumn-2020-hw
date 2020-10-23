@@ -97,23 +97,14 @@ void processChoice(ArrayList& a, int choice)
 	break;
 	case 4:
 	{
-		ArrayList randomNumbers(a.length());
-		ArrayList memory(a.length());
+		int index;
+		int element;
 		for (int i = 0; i < a.length(); ++i)
 		{
-			randomNumbers.add(i, rand() % (a.length() - 0 + 1) + 0);
-			for (int k = 0; k < i; ++k)
-			{
-				if (randomNumbers.get(i) == randomNumbers.get(k))
-				{
-					randomNumbers.add(i, rand() % (10 - 0 + 1) + 0);
-				}
-			}
-			for (int k = 0; k < a.length(); ++k)
-			{
-				memory.set(i, a.get(i));
-			}
-			a.set(i, memory.get(randomNumbers.get(i)));
+			element = a.get(i);
+			index = rand() % a.length() + 0;
+			a.set(i, a.get(index));
+			a.set(index, element);
 		}
 		cout << a.toString() << endl;
 	}

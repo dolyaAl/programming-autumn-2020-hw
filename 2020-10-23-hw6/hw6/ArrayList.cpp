@@ -5,6 +5,14 @@ ArrayList::~ArrayList()
 	delete[] data;
 	delete[] str;
 }
+ArrayList::ArrayList(ArrayList& array)
+{
+	count = array.count;
+	capacity = array.capacity;
+	data = new int[array.capacity];
+	str = nullptr;
+	for (int i = 0; i < count; data[i] = array.data[i], ++i)
+}
 
 void expandN(int*& data, int& capacity, int N)
 {

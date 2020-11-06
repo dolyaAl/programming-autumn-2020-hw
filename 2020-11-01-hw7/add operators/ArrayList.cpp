@@ -2,10 +2,13 @@
 
 ArrayList::~ArrayList()
 {
+	if (str != nullptr)
+	{
+		delete[] str;
+	}
 	delete[] data;
-	delete[] str;
 }
-ArrayList::ArrayList(ArrayList& array)
+ArrayList::ArrayList(const ArrayList& array)
 {
 	count = array.count;
 	capacity = array.capacity;
@@ -269,6 +272,7 @@ int ArrayList::indexOf(int element)
 	{
 		return -1;
 	}
+	return 0;
 }
 
 bool ArrayList::isEmpty()
@@ -324,36 +328,41 @@ void ArrayList::operator-= (int item)
 }
 
 ArrayList& ArrayList::operator= (const ArrayList& list)
-{
+{	
 	if (&list != this)
 	{
-		for (int i = 0; i < list.count; i++)
+		delete[] data;
+		count = list.count;
+		capacity = list.capacity;
+		data = new int[list.capacity] {0};
+		for (int i = 0; i < count; ++i)
 		{
 			data[i] = list.data[i];
 		}
-		return *this;
+
 	}
+	return *this;	
 }
 
 ArrayList operator+ (const ArrayList& list, int item)
 {
-	ArrayList list1(list.count);
+	ArrayList list1(list.count + 1);
 	for (int i = 0; i < list.count; i++)
 	{
-		list1.data[i] = list.data[i];
+		list1.add(i, list.data[i]);
 	}
-	list1.data[list1.count] = item;
+	list1.add(item);
 	return list1;
 }
 
 ArrayList operator+ (int item, const ArrayList& list)
 {
 	ArrayList list1(list.count + 1);
-	for (int i = list1.count + 1; i > 0; --i)
+	for (int i = 0; i < list.count; i++)
 	{
-		list1.data[i] = list.data[i - 1];
+		list1.add(i, list.data[i]);
 	}
-	list1.data[0] = item;
+	list1.add(0, item);
 	return list1;
 }
 
@@ -364,11 +373,11 @@ ArrayList operator+ (const ArrayList& list1, const ArrayList& list2)
 	{
 		if (i < list1.count)
 		{
-			list3.data[i] = list1.data[i];
+			list3.add(i, list1.data[i]);
 		}
 		if (i >= list1.count)
 		{
-			list3.data[i] = list2.data[i - list1.count];
+			list3.add(i, list2.data[i - list1.count]);
 		}
 	}
 	return list3;
@@ -379,20 +388,9 @@ ArrayList operator- (const ArrayList& list, int item)
 	ArrayList list1(list.count - 1);
 	for (int i = 0; i < list.count; ++i)
 	{
-		list1.data[i] = list.data[i];
+		list1.add(i, list.data[i]);
 	}
-	int index = 0;
-	for (int i = 0; i < list.count; ++i)
-	{
-		if (list.data[i] == item)
-		{
-			index = i;
-		}
-	}
-	for (int i = index; i < list.count; ++i)
-	{
-		list1.data[i] = list1.data[i + 1];
-	}
+	list1.remove(list1.indexOf(item));
 	return list1;
 }
 
@@ -401,7 +399,7 @@ ArrayList operator- (int item, const ArrayList& list)
 	ArrayList list1(list.count - 1);
 	for (int i = 0; i < list.count; ++i)
 	{
-		list1.data[i] = list.data[i+1];
+		list1.add(i, list.data[i+1]);
 	}
 	return list1;
 }

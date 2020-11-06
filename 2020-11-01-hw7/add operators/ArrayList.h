@@ -10,7 +10,7 @@ private:
 
 public:
 	ArrayList(int capacity = 10) :count(0), capacity(capacity), data(new int[capacity]), str(nullptr) {}
-	ArrayList(ArrayList& array);
+	ArrayList(const ArrayList& array);
 	~ArrayList();
 
 private:

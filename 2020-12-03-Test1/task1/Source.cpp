@@ -8,6 +8,7 @@ using namespace std;
 double myFunction(double x, int n)
 {
 	double xx = 1;
+	double dop = x;
 	double count = 1;
 	for (int i = 0; i < n; ++i)
 	{
@@ -20,8 +21,8 @@ double myFunction(double x, int n)
 		while (c > count)
 		{
 			xx += x;
-			x = x * x;
-			c = c * c;
+			x = x * dop;
+			c = c * (-dop);
 		}
 	}
 	else if (x > 0)
@@ -29,7 +30,7 @@ double myFunction(double x, int n)
 		while (x > count)
 		{
 			xx += x;
-			x = x * x;
+			x = x * dop;
 		}
 	}
 	return xx;
@@ -59,7 +60,7 @@ int main()
 	}
 	else
 	{
-		cout << "MY FUNC: 1 / (1 - x) = " << setprecision(9) << myFunction(x, n) << endl;
+		cout << "MY FUNC: 1 / (1 - x) = " << myFunction(x, n) << endl;
 	}
 	return EXIT_SUCCESS;
 }

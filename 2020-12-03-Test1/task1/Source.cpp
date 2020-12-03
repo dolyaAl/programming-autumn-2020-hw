@@ -14,22 +14,10 @@ double myFunction(double x, int n)
 	{
 		count *= 0.1;
 	}
-	if (x < 0)
+	while (abs(x) >= count)
 	{
-		count = -count;
-		while (x < count)
-		{
-			xx += x;
-			x = x * dop;
-		}
-	}
-	else if (x > 0)
-	{
-		while (x > count)
-		{
-			xx += x;
-			x = x * dop;
-		}
+		xx += x;
+		x = x * dop;
 	}
 	return xx;
 }
@@ -43,7 +31,6 @@ int main()
 	cin >> x;
 	cout << "¬ведите n" << endl;
 	cin >> n;
-	cout << "C++ : 1 / (1 - x) = " << setprecision(9) <<  1 / (1 - x) << endl;
 	if (x == 1)
 	{
 		cout << "MY FUNC: 1 / (1 - x) = inf" << endl;
@@ -58,7 +45,8 @@ int main()
 	}
 	else
 	{
-		cout << "MY FUNC: 1 / (1 - x) = " << myFunction(x, n) << endl;
+		cout << "MY FUNC: 1 / (1 - x) = " << setprecision(9) << myFunction(x, n) << endl;
 	}
+	cout << "C++ : 1 / (1 - x) = " << setprecision(9) << 1 / (1 - x) << endl;
 	return EXIT_SUCCESS;
 }

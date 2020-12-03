@@ -16,13 +16,11 @@ double myFunction(double x, int n)
 	}
 	if (x < 0)
 	{
-		int c = 0;
-		c = -x;
-		while (c > count)
+		count = -count;
+		while (x < count)
 		{
 			xx += x;
 			x = x * dop;
-			c = c * (-dop);
 		}
 	}
 	else if (x > 0)

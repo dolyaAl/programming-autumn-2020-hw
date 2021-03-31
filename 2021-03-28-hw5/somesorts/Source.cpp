@@ -77,11 +77,12 @@ int findMax(int* arr, int len, int k, int element)
 
 void quickSort(int* arr, int left, int right)
 {
+	if (left >= right) return;
 	int g_left = left;
 	int g_right = right;
-	int mid = (left + right) / 2;
-	int pivot = findMid(arr, left, right);
-	while (g_left < g_right)
+	int mid = (right + left) / 2;
+	int pivot = arr[mid];
+	do
 	{
 		while (arr[g_left] < pivot)
 		{
@@ -91,26 +92,25 @@ void quickSort(int* arr, int left, int right)
 		{
 			g_right--;
 		}
-		if (g_left < g_right)
+		if (g_left <= g_right)
 		{
 			cout << "swaped " << arr[g_left] << " and " << arr[g_right] << endl;
 			swap(arr[g_left], arr[g_right]);
 			g_left++;
 			g_right--;
-			printArr(arr,20);
+			printArr(arr, 20);
 		}
-	}
-	if (mid > 0 && mid != left)
+	} while (g_left <= g_right);
+	if (g_left < right)
 	{
-		cout << "left sort [" << left << ";" << mid << "]" << endl;
-		quickSort(arr, left, mid);
+		cout << "left sort [" << left << ";" << mid - 1 << "]" << endl;
+		quickSort(arr, g_left, right);
 	}
-	if (mid > 0 && mid != right - 1)
+	if (g_right > 0)
 	{
-		cout << "right sort [" << mid << ";" << right << "]" << endl;
-		quickSort(arr, mid, right);
+		cout << "right sort [" << mid + 1 << ";" << right << "]" << endl;
+		quickSort(arr, left, g_right);
 	}
-
 }
 
 void countingSort(int* array, int n, int k) 
